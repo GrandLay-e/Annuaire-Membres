@@ -17,11 +17,9 @@ class Gerer
         $les_membres=$this->pdo->getLesMembres();
         require 'views/v_listemembres.php';
     }
-    public function choisir():void
+    public function choisir($action="modifier", $bouton="Modifier"):void
     {
         $les_membres = $this->pdo->getLesMembres();
-        $action = "modifier";
-        $bouton = "Modifier";
         require 'views/v_choisirmembre.php';
     }
    
@@ -35,13 +33,12 @@ class Gerer
 
     public function validerModif():void
     {
-        $id=$_REQUEST['id'];
-        $nom=$_REQUEST['nouveau-nom'];
-        $prenom=$_REQUEST['nouveau-prenom'];
-        $unMembre=$this->pdo->getUnMembre($id);
-        $unMembre=$unMembre[0];
-        $unMembre->pdo->updateMembre($id,$nom,$prenom);
-        require "views/v_listemembres.php";
+        $this->pdo->updateMembre($_REQUEST['id'],
+                                $_REQUEST['nouveau-nom'],
+                                $_REQUEST['nouveau-prenom']);
+        $unMembre=$this->pdo->getUnMembre($_REQUEST['id'])[0];
+
+        $this->lister();
     }
     
     public function ajouter():void
@@ -54,21 +51,18 @@ class Gerer
         $prenom = $_REQUEST['prenom'];
         $id = $this->pdo->getMaxId() + 1;
         $this->pdo->ajouterMembre($id, $nom, $prenom);
-        require "views/v_accueil.php";
+        $this->lister();
     }
 
     public function supprimer():void
     {
-        $les_membres = $this->pdo->getLesMembres();
-        $action = "supprimerUnMembre";
-        $bouton = "Supprimer";
-        require "views/v_choisirmembre.php";
+        $this->choisir("supprimerUnMembre", "Supprimer");
     }
     public function supprimerUnMembre():void
     {
         $id = $_REQUEST['id'];
         $this->pdo->supprimerMembre($id);
-        require "views/v_listemembres.php";
+        $this->lister();
     }
     public function error():void
     {
