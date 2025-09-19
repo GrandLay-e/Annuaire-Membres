@@ -62,7 +62,7 @@ Ce qui vous est demandé de faire :
 Les membres seront supprimés un par un.
 Ce qui vous est demandé de faire :
 1. dans le fichier `m_model.php` créez la fonction `insertMembre()`
-2. créez un fichier `v_deletemembre.php` dans lequel l'utilisateur chois le membre à supprimer dans une liste, puis valide la suppression
+2. créez un fichier `v_deletemembre.php` dans lequel l'utilisateur choisit le membre à supprimer dans une liste, puis valide la suppression
 3.  Affichez le résultat de la saisie dans la vue `accueil.php`  
     Fiches descriptives du cas d'utilisation à réaliser.
 

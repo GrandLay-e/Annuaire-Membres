@@ -17,5 +17,5 @@
     </tbody>
 </table>
 <ul>
-    <li><a href='index.php'>retour accueil</a></li>
+    <li><a href='index.php'> <button> Retour à l'accueil </button></a></li>
 </ul>

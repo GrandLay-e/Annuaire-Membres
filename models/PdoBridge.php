@@ -64,17 +64,29 @@ class PdoBridge
     }
 
     public function updateMembre($id,$nom, $prenom){
-        $sql="UPDATE membres SET nom='$nom', prenom='$prenom' WHERE id=$id";
-        $req = PdoBridge::$monPdo->exec($sql);
+        $sql="UPDATE membres SET nom=';nom', prenom=':prenom' WHERE id=:id";
+        $req = PdoBridge::$monPdo->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->bindParam(':nom', $nom);
+        $req->bindParam(':prenom', $prenom);
+        $req->execute();
     }
 
     public function supprimerMembre($id){
-        $sql="DELETE FROM membres WHERE id=$id";
-        $req = PdoBridge::$monPdo->exec($sql);
+        $sql="DELETE FROM membres WHERE id=:id";
+        $req = PdoBridge::$monPdo->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->execute();
     }
 
     public function ajouterMembre($id,$nom, $prenom){
-        $sql="INSERT INTO membres (id, nom, prenom) VALUES ($id,'$nom', '$prenom')";
-        $req = PdoBridge::$monPdo->exec($sql);
+
+        $sql = "INSERT INTO membres (id, nom, prenom) VALUES (:id, :nom,:prenom)";
+        $req = PdoBridge::$monPdo->prepare($sql);
+        $req->bindParam(':id', $id);
+        $req->bindParam(':nom', $nom);
+        $req->bindParam(':prenom', $prenom);
+        $req->execute();
+
     }
 }
